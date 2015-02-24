@@ -24,7 +24,6 @@
     <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' /> 
     <!-- TURF.JS -->
     <script src="js/turf.min.js" charset="utf-8"></script>
-    
     <!-- MAKIMARKERS JS-->
     <script src="js/Leaflet.MakiMarkers.js"></script>
     <!-- MY JS -->
@@ -35,19 +34,92 @@
         #map { position:absolute; top:0; bottom:0; left:20%; width:100%; z-index: 0; }
         #customize {padding: 15px; position: absolute; z-index: 10; width: 20%;}
         .info p {line-height: .8}
-        .exit {position: absolute; margin-left: 76%; display: block;}
-
+        .expand {position: absolute; z-index: 1;}
+        .exit {float: right; display: block; margin: 5px;}
+        #side {position: absolute; z-index: 10; width: 20%; display: block;}
+        
         .pt1 {color: #BA0320; opacity: .8;}
         .pt2 {color: #EA3C08; opacity: .8;}
         .pt3 {color: #FE7E13; opacity: .8;}
         .pt4 {color: #FFB626; opacity: .8;}
+        
     </style>
     
 </head>
 
 <body>
-       
-    <div id="customize">
+
+<div class="expand">
+    <button onclick=expand()> > </button>
+</div>
+
+<div id="side">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div style="height: 35px">
+    <button class="exit" onclick=hide()> X </button>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          About the Map
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Customize Parameters
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class= "panel-body">
+            <form class="form-horizontal">
+                <div class="form-group" style="padding: 20px;">
+                  <label for="inputEmail3" class=" control-label">System Cost: </label>
+                    <input type="text" class="form-control" id="sysCost" value=521>
+                  <label for="inputPassword3" class="control-label">Years: </label>
+                    <input type="text" class="form-control" id="years" value=17>
+                  <label for="inputPassword3" class=" control-label">Local Cost per kWh: </label>
+                    <input type="text" class="form-control" id="costKWH" value=.1022>
+                  <label for="inputPassword3" class=" control-label">System Efficiency (%): </label>
+                    <input type="text" class="form-control" id="sysEff" value=90>
+                  <label for="inputPassword3" class=" control-label">Panel Efficiency (%):</label>
+                    <input type="text" class="form-control" id="panelEff" value=18>
+                </div>
+          </form>
+          <button style="margin-left: 33%; text-align: center;" onclick=setVariables()>Apply</button>
+          <button style="margin-left: 33%; margin-top: 10px; text-align: center;" id ="toggleBt" onclick=togglePts()>Toggle Points</button>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Solar Background
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+     
+  
+    <!--div id="customize">
         <button class="exit" onclick=hide()> X </button>
         <form class="form-horizontal">
             <div class="form-group" style="padding: 20px;">
@@ -64,8 +136,8 @@
             </div>
       </form>
       <button style="margin-left: 33%; text-align: center;" onclick=setVariables()>Apply</button>
-      <button style="margin-left: 33%; text-align: center;" id ="toggleBt" onclick=togglePts()>Toggle Points</button>
-    </div>
+      <button style="margin-left: 33%; margin-top: 10px; text-align: center;" id ="toggleBt" onclick=togglePts()>Toggle Points</button>
+    </div-->
     
     <div id="map"></div>
 

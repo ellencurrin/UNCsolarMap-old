@@ -75,7 +75,7 @@ function buildMap() {
     
 }
 
-function addBldg() {
+function addBldg(pts) {
     bldg = omnivore.geojson('data/bldg_feasibility.geojson')
     .on('ready', function(go) {
                 this.eachLayer(function(polygon) {
@@ -85,30 +85,88 @@ function addBldg() {
                     polygon.on('click', function() {
                         onClick(polygon);
                     });
-                    if (polygon.feature.properties.kwm2day_avg >= minValue) {
+                    var chink = 5500/7
+                    if (polygon.feature.properties.kwm2day_sum >= chink*6) {
                         //console.log()
                         polygon.setStyle ( {
                                 color: '#fff',
                                 opacity: 1,
                                 weight: 1, 
-                                fillColor: '#56A0D3',
-                                fillOpacity: .5
+                                fillColor: '#002654',
+                                fillOpacity: .8
                                 // for more options--> 'leaflet.js path options'
                         })
                         .addTo(map);
-                    } else {
+                    } else if (polygon.feature.properties.kwm2day_sum >= chink*5) {
+                        //console.log()
                         polygon.setStyle ( {
                                 color: '#fff',
                                 opacity: 1,
                                 weight: 1, 
-                                fillColor: '#56A0D3',
-                                fillOpacity: .5
+                                fillColor: '#225EA8',
+                                fillOpacity: .8
+                                // for more options--> 'leaflet.js path options'
+                        })
+                        .addTo(map);
+                    } else if (polygon.feature.properties.kwm2day_sum >= chink*4) {
+                        //console.log()
+                        polygon.setStyle ( {
+                                color: '#fff',
+                                opacity: 1,
+                                weight: 1, 
+                                fillColor: '#1D91C0',
+                                fillOpacity: .8
+                                // for more options--> 'leaflet.js path options'
+                        })
+                        .addTo(map);
+                    } else if (polygon.feature.properties.kwm2day_sum >= chink*3) {
+                        //console.log()
+                        polygon.setStyle ( {
+                                color: '#fff',
+                                opacity: 1,
+                                weight: 1, 
+                                fillColor: '#41B6C4',
+                                fillOpacity: .8
+                                // for more options--> 'leaflet.js path options'
+                        })
+                        .addTo(map);
+                    } else if (polygon.feature.properties.kwm2day_sum >= chink*2) {
+                        //console.log()
+                        polygon.setStyle ( {
+                                color: '#fff',
+                                opacity: 1,
+                                weight: 1, 
+                                fillColor: '#7FCDBB',
+                                fillOpacity: .8
+                                // for more options--> 'leaflet.js path options'
+                        })
+                        .addTo(map);
+                    } else if (polygon.feature.properties.kwm2day_sum >= chink){
+                        //console.log()
+                        polygon.setStyle ( {
+                                color: '#fff',
+                                opacity: 1,
+                                weight: 1, 
+                                fillColor: '#C7E9B4',
+                                fillOpacity: .8
+                                // for more options--> 'leaflet.js path options'
+                        })
+                        .addTo(map);
+                    } else {
+                        //console.log()
+                        polygon.setStyle ( {
+                                color: '#fff',
+                                opacity: 1,
+                                weight: 1, 
+                                fillColor: '#FFFFAE',
+                                fillOpacity: .8
                                 // for more options--> 'leaflet.js path options'
                         })
                         .addTo(map);
                     }
                 })
         }).addTo(map)
+    
     
     counter ++
     
@@ -188,7 +246,7 @@ function onClick(polygon) {
     
     ///Reset Style
     polygon.setStyle ({
-        color: '#56A0D3',
+        color: '#fff', //56A0D3
         weight: 4,
         opacity: 1
     })
@@ -200,8 +258,13 @@ function onClick(polygon) {
 
 //// COLLAPSE/EXPAND CUSTOMIZE DIV
 function hide() {
-    document.getElementById("customize").style.display = 'none';
+    document.getElementById("side").style.display = 'none';
     document.getElementById("map").style.left = '0';
+}
+
+function expand() {
+    document.getElementById("side").style.display = 'block';
+    document.getElementById("map").style.left = '20%';
 }
 
 //// TOGGLE PT LAYER
@@ -210,3 +273,4 @@ function togglePts() {
     addPts()
     
 }
+
