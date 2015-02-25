@@ -17,7 +17,8 @@ $(document).ready(function() {
     console.log("ready")
     buildMap();
     setVariables();
-    loadLayers('data/solar_point.geojson');   
+    loadLayers('data/solar_point.geojson');
+    $('[data-toggle="tooltip"]').tooltip()
 });
 
 //****** SETTING RESULT VARIABLES
@@ -58,6 +59,7 @@ function setVariables(){
     } else {
         console.log("no remove")
         addBldg();
+        addPts();
     }
     
 }
@@ -211,6 +213,7 @@ function addPts() {
                     } else {console.log("no more points")}
                 })
     })
+    //.addTo(map)
     ptStatus = true
 }
 
@@ -259,7 +262,7 @@ function onClick(polygon) {
 //// COLLAPSE/EXPAND CUSTOMIZE DIV
 function hide() {
     document.getElementById("side").style.display = 'none';
-    document.getElementById("map").style.left = '0';
+    document.getElementById("map").style.left = '3%';
 }
 
 function expand() {
@@ -267,10 +270,22 @@ function expand() {
     document.getElementById("map").style.left = '20%';
 }
 
+function openDialog() {
+	bootbox.dialog({
+                message:"<h4>So, what makes a location suitable?</h4><p>Well, the answer to this question is different for different people and institutions. The average cost of electricity and solar installation vary by region. Different solar cells have different sizes and efficiencies. When these factors are determined and combined with the physical factors (the size, pitch, slope, and elevation) of a rooftop, the productivity of a building can be determined. Different return period lengths (the amount of time it takes for electricity savings to exceed the cost of a panel) demand different levels of productivity, which broadens or narrows the range of suitable locations.</p>" ,
+                //title: "<h3>So, what makes a location suitable?</h3>"
+	})
+        console.log('dialog box created')
+}
+
 //// TOGGLE PT LAYER
 function togglePts() {
     console.log("togglingPts")
-    addPts()
-    
+    if (ptStatus == true) {
+        addPts()
+    } else {
+        ptStatus = false
+    }  
 }
+
 
